@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cricehgoj66qo"]
+
+[ext_resource type="Script" path="res://scripts/NNTool/data_value.gd" id="1_knoss"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujjeu"]
+bg_color = Color(0.794506, 0.534068, 0.305125, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+
+[node name="DataValue" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_knoss")
+
+[node name="DataName" type="Label" parent="."]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ujjeu")
+text = "Name"
+horizontal_alignment = 1
+
+[node name="DataValue" type="LineEdit" parent="."]
+layout_mode = 2
+alignment = 1
+
+[connection signal="text_submitted" from="DataValue" to="." method="_on_data_value_text_submitted"]

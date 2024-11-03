@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://5unsf6j7j2th"]
+
+[ext_resource type="Script" path="res://scripts/NNTool/example_data.gd" id="1_y2nly"]
+[ext_resource type="PackedScene" uid="uid://drn71b6s1k8i2" path="res://scenes/NNTool/DataList.tscn" id="2_jwyp4"]
+
+[node name="ExampleData" type="VBoxContainer"]
+offset_right = 64.0
+offset_bottom = 58.0
+size_flags_horizontal = 3
+script = ExtResource("1_y2nly")
+
+[node name="LabelInputs" type="Label" parent="."]
+layout_mode = 2
+text = "Inputs"
+
+[node name="DataListInputs" parent="." instance=ExtResource("2_jwyp4")]
+layout_mode = 2
+
+[node name="LabelOutputs" type="Label" parent="."]
+layout_mode = 2
+text = "Outputs
+"
+
+[node name="DataListOutputs" parent="." instance=ExtResource("2_jwyp4")]
+layout_mode = 2

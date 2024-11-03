@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwyfmcyup1a2b"]
+
+[ext_resource type="Script" path="res://scripts/NNTool/inputs.gd" id="1_mjcvn"]
+
+[node name="MyList" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_mjcvn")

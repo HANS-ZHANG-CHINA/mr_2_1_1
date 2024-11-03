@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=3 uid="uid://docrmrmaxnm8c"]
+
+[ext_resource type="Script" path="res://scripts/NNTool/tool_read_data.gd" id="1_cges8"]
+[ext_resource type="PackedScene" uid="uid://b4jvt6g4e3ub7" path="res://scenes/NNTool/nn_schema.tscn" id="2_cm46g"]
+[ext_resource type="PackedScene" uid="uid://5unsf6j7j2th" path="res://scenes/NNTool/example_data.tscn" id="3_anq4o"]
+
+[node name="ToolReadData" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_cges8")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+size = Vector2i(303, 500)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.json")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Previous"
+
+[node name="LExample" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Example 0"
+
+[node name="Button2" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Next"
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NNSchema" parent="HBoxContainer/VBoxContainer/PanelContainer2" instance=ExtResource("2_cm46g")]
+layout_mode = 2
+
+[node name="PanelContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ExampleData" parent="HBoxContainer/VBoxContainer/PanelContainer" instance=ExtResource("3_anq4o")]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonLoad" type="Button" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Load"
+
+[node name="ButtonSave" type="Button" parent="HBoxContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+text = "Save"
+
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/HBoxContainer/Button2" to="." method="_on_button_2_button_up"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/ButtonLoad" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/ButtonSave" to="." method="_on_button_save_pressed"]

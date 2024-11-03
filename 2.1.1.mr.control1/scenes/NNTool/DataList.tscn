@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://drn71b6s1k8i2"]
+
+[ext_resource type="Script" path="res://scripts/NNTool/data_list.gd" id="1_tcku5"]
+
+[node name="DataList" type="VBoxContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_tcku5")

@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgcti3lu4s64h"]
+
+[ext_resource type="Script" path="res://scenes/assembly_mk_1.gd" id="1_bdslq"]
+[ext_resource type="Texture2D" uid="uid://dk4ne2u7obgvo" path="res://assets/rockets/RocketMain1.png" id="1_sxf8k"]
+[ext_resource type="Texture2D" uid="uid://bok7mth7cx5er" path="res://assets/rockets/RocketEngines1.png" id="2_l14f4"]
+[ext_resource type="Script" path="res://scenes/engine.gd" id="3_qkn8k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0jusd"]
+size = Vector2(14, 16)
+
+[node name="AssemblyMK1" type="Node2D"]
+script = ExtResource("1_bdslq")
+
+[node name="MainRocket" type="RigidBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="MainRocket"]
+texture_filter = 1
+texture = ExtResource("1_sxf8k")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MainRocket"]
+polygon = PackedVector2Array(0, -60, -12, -36, -18, -1, -12, 23, -19, 33, -22, 45, -22, 63, 22, 63, 23, 44.9, 20, 33, 13, 23, 19, 0, 11, -36)
+
+[node name="Engine" type="RigidBody2D" parent="MainRocket"]
+position = Vector2(0, 52)
+script = ExtResource("3_qkn8k")
+
+[node name="Sprite2D" type="Sprite2D" parent="MainRocket/Engine"]
+texture_filter = 1
+texture = ExtResource("2_l14f4")
+hframes = 4
+vframes = 4
+frame = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainRocket/Engine"]
+shape = SubResource("RectangleShape2D_0jusd")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="MainRocket"]
+position = Vector2(-8, 44)
+node_a = NodePath("..")
+node_b = NodePath("../Engine")
+softness = 1.0
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="MainRocket"]
+position = Vector2(7, 44)
+node_a = NodePath("..")
+node_b = NodePath("../Engine")
+softness = 1.0

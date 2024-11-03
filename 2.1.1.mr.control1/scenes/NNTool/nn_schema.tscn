@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4jvt6g4e3ub7"]
+
+[ext_resource type="Script" path="res://scripts/NNTool/nn_schema.gd" id="1_uvsjx"]
+[ext_resource type="PackedScene" uid="uid://bwyfmcyup1a2b" path="res://scenes/NNTool/inputs.tscn" id="2_afphl"]
+
+[node name="NNSchema" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uvsjx")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelInputs" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Inputs"
+
+[node name="Inputs" parent="HBoxContainer" instance=ExtResource("2_afphl")]
+layout_mode = 2
+
+[node name="LabelOutputs" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Outputs
+"
+
+[node name="Outputs" parent="HBoxContainer" instance=ExtResource("2_afphl")]
+layout_mode = 2
