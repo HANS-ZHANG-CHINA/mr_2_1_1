@@ -1,13 +1,13 @@
 extends Node
 
-var player_position : Vector2 = Vector2(320, 141):
+var weight_altitude : float = 0.0:
 	get:
-		return player_position
+		return weight_altitude
 	set(value):
-		player_position = value
+		weight_altitude = value
 		
-var player_health : float = 100.0:
+var weight_velocity : float = 0.0:
 	get:
-		return player_health
+		return weight_velocity
 	set(value):
-		player_health = value
+		weight_velocity = value

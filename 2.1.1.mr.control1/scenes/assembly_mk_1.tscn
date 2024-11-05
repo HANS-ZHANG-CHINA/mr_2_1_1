@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgcti3lu4s64h"]
+[gd_scene load_steps=7 format=3 uid="uid://dgcti3lu4s64h"]
 
 [ext_resource type="Script" path="res://scenes/assembly_mk_1.gd" id="1_bdslq"]
 [ext_resource type="Texture2D" uid="uid://dk4ne2u7obgvo" path="res://assets/rockets/RocketMain1.png" id="1_sxf8k"]
 [ext_resource type="Texture2D" uid="uid://bok7mth7cx5er" path="res://assets/rockets/RocketEngines1.png" id="2_l14f4"]
 [ext_resource type="Script" path="res://scenes/engine.gd" id="3_qkn8k"]
+[ext_resource type="Script" path="res://scripts/AI/neuron_component.gd" id="5_fopjx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0jusd"]
 size = Vector2(14, 16)
@@ -35,13 +36,19 @@ frame = 4
 shape = SubResource("RectangleShape2D_0jusd")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="MainRocket"]
-position = Vector2(-8, 44)
 node_a = NodePath("..")
 node_b = NodePath("../Engine")
 softness = 1.0
 
 [node name="PinJoint2D2" type="PinJoint2D" parent="MainRocket"]
-position = Vector2(7, 44)
+position = Vector2(0, 44)
 node_a = NodePath("..")
 node_b = NodePath("../Engine")
 softness = 1.0
+
+[node name="RayCast2D" type="RayCast2D" parent="MainRocket"]
+target_position = Vector2(0, 500)
+collision_mask = 8
+
+[node name="NeuronComponent" type="Node" parent="."]
+script = ExtResource("5_fopjx")

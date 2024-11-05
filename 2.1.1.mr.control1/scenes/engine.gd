@@ -25,5 +25,5 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	thrust_force = direction_vector.normalized() * thrust_force_length
 	
 	apply_force(thrust_force, displacement)
-	print(rad_to_deg(get_parent().rotation))
+	#print(rad_to_deg(get_parent().rotation))
 	#fuel -= power_fuel_drain * power
