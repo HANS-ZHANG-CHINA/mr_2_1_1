@@ -58,6 +58,10 @@ tile_set = SubResource("TileSet_3hpik")
 [node name="AssemblyMK1" parent="." instance=ExtResource("2_ajen8")]
 position = Vector2(535, -500)
 
+[node name="MainRocket" parent="AssemblyMK1" index="0"]
+contact_monitor = true
+max_contacts_reported = 4
+
 [node name="Camera2D" type="Camera2D" parent="AssemblyMK1/MainRocket" index="2"]
 zoom = Vector2(0.4, 0.4)
 
@@ -73,9 +77,9 @@ softness = 0.0
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -229.0
+offset_left = -292.0
 offset_top = 15.0
-offset_right = -38.0
+offset_right = -33.0
 offset_bottom = 143.0
 grow_horizontal = 0
 
@@ -87,6 +91,10 @@ offset_bottom = 40.0
 [node name="AltitudeWeight" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
 
+[node name="LineEditAltitude" type="LineEdit" parent="CanvasLayer/Panel/VBoxContainer/AltitudeWeight"]
+layout_mode = 2
+editable = false
+
 [node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/AltitudeWeight"]
 layout_mode = 2
 text = "Altitude"
@@ -94,13 +102,17 @@ text = "Altitude"
 [node name="AltitudeHSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer/AltitudeWeight"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-min_value = -1.0
-max_value = 1.0
+min_value = -10.0
+max_value = 10.0
 step = 0.01
 tick_count = 5
 
 [node name="VelocityWeight" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
+
+[node name="LineEditVelocity" type="LineEdit" parent="CanvasLayer/Panel/VBoxContainer/VelocityWeight"]
+layout_mode = 2
+editable = false
 
 [node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/VelocityWeight"]
 layout_mode = 2
@@ -109,9 +121,10 @@ text = "Velocity"
 [node name="VelocityHSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer/VelocityWeight"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
-min_value = -1.0
-max_value = 1.0
+min_value = -10.0
+max_value = 10.0
 step = 0.01
+value = -0.01
 tick_count = 5
 
 [node name="Output" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
@@ -129,6 +142,7 @@ text = "0"
 layout_mode = 2
 text = "Restart"
 
+[connection signal="body_entered" from="AssemblyMK1/MainRocket" to="AssemblyMK1" method="_on_main_rocket_body_entered"]
 [connection signal="output_changed" from="AssemblyMK1/NeuronComponent" to="." method="_on_neuron_component_output_changed"]
 [connection signal="value_changed" from="CanvasLayer/Panel/VBoxContainer/AltitudeWeight/AltitudeHSlider" to="." method="_on_altitude_h_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Panel/VBoxContainer/VelocityWeight/VelocityHSlider" to="." method="_on_velocity_h_slider_value_changed"]

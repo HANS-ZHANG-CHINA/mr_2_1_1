@@ -5,6 +5,10 @@ extends Node2D
 @onready var velocity_h_slider: HSlider = $CanvasLayer/Panel/VBoxContainer/VelocityWeight/VelocityHSlider
 @onready var label_2: Label = $CanvasLayer/Panel/VBoxContainer/Output/Label2
 
+@onready var line_edit_altitude: LineEdit = $CanvasLayer/Panel/VBoxContainer/AltitudeWeight/LineEditAltitude
+@onready var line_edit_velocity: LineEdit = $CanvasLayer/Panel/VBoxContainer/VelocityWeight/LineEditVelocity
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	altitude_h_slider.value = Meta.weight_altitude
@@ -13,8 +17,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
-
+	line_edit_altitude.set_text("%2.2f"% assembly_mk_1.unit_distance)
+	line_edit_velocity.set_text("%2.2f"% assembly_mk_1.unit_velocity)
 
 func _on_button_pressed() -> void:
 	get_tree().reload_current_scene()

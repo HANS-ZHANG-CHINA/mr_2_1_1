@@ -30,7 +30,7 @@ func calculate_output():
 	output_value = 0
 	output_value = calculate_relu(soma_value)
 	output_changed.emit(output_value)
-	print(output_value)
+	#print(output_value)
 	
 func calculate_relu(value) -> float:
 	
