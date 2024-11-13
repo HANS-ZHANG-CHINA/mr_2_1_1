@@ -17,6 +17,12 @@ var unit_velocity = 0
 var auto_is_on:bool = true
 
 var assembly_is_ok = true
+
+var use_fuel = false
+var fuel = 8000.0
+var max_fuel = 40000.0
+var fuel_unit = -1.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	neuron_component.set_input_weight_pair(unit_distance, 0)
@@ -25,7 +31,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	fuel_unit = fuel/max_fuel
 
 func _physics_process(delta: float) -> void:
 	ray_cast_2d.target_position = (main_rocket.position + Vector2(0, 1000)) * main_rocket.transform
@@ -48,13 +54,14 @@ func _physics_process(delta: float) -> void:
 		#print(collision_point.y)
 		#print(distance_to_ground)
 		unit_distance = mapping_value_linear(distance_to_ground,0, 1000, 0, 1)
-		
-		neuron_component.set_input_value(0, unit_distance)
-		
-		var calc_linear_velocity_length = main_rocket.linear_velocity.length()
-		unit_velocity = mapping_value_linear(clamp(calc_linear_velocity_length,0,1000),0, 1000, 0, 1)
-		
-		neuron_component.set_input_value(1, unit_velocity)
+	else:
+		unit_distance = 1
+	neuron_component.set_input_value(0, unit_distance)
+	
+	var calc_linear_velocity_length = main_rocket.linear_velocity.length()
+	unit_velocity = mapping_value_linear(clamp(calc_linear_velocity_length,0,1000),0, 1000, 0, 1)
+	
+	neuron_component.set_input_value(1, unit_velocity)
 		#print(unit_distance)
 		#print(unit_velocity)
 		
@@ -64,7 +71,11 @@ func _physics_process(delta: float) -> void:
 	if auto_is_on and assembly_is_ok:
 		var engine_coef = neuron_component.output_value
 		engine_coef = clamp(engine_coef, 0, 1)
-		engine.set_amount_force(engine.max_thrust_force * engine_coef)
+		var thrust_level = engine.max_thrust_force * engine_coef
+		var fuel_flow = thrust_level * engine.fuel_second * delta
+		fuel -= fuel_flow
+		if fuel > 0 or !use_fuel:
+			engine.set_amount_force(thrust_level)
 		
 func mapping_value_linear(input:float, min_input:float, max_input:float, min_value:float, max_value:float):
 	return (input - min_value) / (max_input - min_input) * (max_value - min_value) + min_value

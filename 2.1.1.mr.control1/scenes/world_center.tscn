@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dbukv62fs41oo"]
+[gd_scene load_steps=14 format=4 uid="uid://dbukv62fs41oo"]
 
 [ext_resource type="Script" path="res://scenes/world_center.gd" id="1_siq0h"]
 [ext_resource type="Texture2D" uid="uid://vejradcjmntr" path="res://assets/tileset_terrain.png" id="1_xds3m"]
@@ -44,10 +44,40 @@ physics_layer_0/collision_layer = 9
 physics_layer_0/collision_mask = 9
 sources/1 = SubResource("TileSetAtlasSource_dlulq")
 
+[sub_resource type="Gradient" id="Gradient_twvew"]
+colors = PackedColorArray(0.344076, 0.344076, 0.344076, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2y85m"]
+gradient = SubResource("Gradient_twvew")
+width = 16
+height = 96
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_djba1"]
+colors = PackedColorArray(1, 1, 1, 0.196078, 1, 1, 1, 0.0392157)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1k1nf"]
+gradient = SubResource("Gradient_djba1")
+width = 4
+height = 96
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_61fk3"]
+colors = PackedColorArray(0.317647, 0, 0, 1, 1, 0.588235, 0.372549, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8xwxt"]
+gradient = SubResource("Gradient_61fk3")
+width = 16
+height = 96
+fill_from = Vector2(1, 1)
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_siq0h")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
 texture = SubResource("GradientTexture2D_qlygb")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -80,7 +110,7 @@ anchor_right = 1.0
 offset_left = -292.0
 offset_top = 15.0
 offset_right = -33.0
-offset_bottom = 143.0
+offset_bottom = 162.0
 grow_horizontal = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
@@ -138,14 +168,66 @@ text = "Thrust"
 layout_mode = 2
 text = "0"
 
+[node name="HBoxContainerUseFuel" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/HBoxContainerUseFuel"]
+layout_mode = 2
+text = "Use Fuel"
+
+[node name="CBUseFuel" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/HBoxContainerUseFuel"]
+layout_mode = 2
+
+[node name="HBoxContainerRandomizeAltitude" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/HBoxContainerRandomizeAltitude"]
+layout_mode = 2
+text = "Randomize Altitude"
+
+[node name="CBRandomizeAltitude" type="CheckBox" parent="CanvasLayer/Panel/VBoxContainer/HBoxContainerRandomizeAltitude"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
 [node name="Button" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Restart"
+
+[node name="Panel2" type="Panel" parent="CanvasLayer"]
+offset_left = 798.0
+offset_top = 16.0
+offset_right = 838.0
+offset_bottom = 158.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Fuel"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Panel2"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 33.0
+offset_right = 52.0
+offset_bottom = 129.0
+value = 90.0
+fill_mode = 3
+texture_under = SubResource("GradientTexture2D_2y85m")
+texture_over = SubResource("GradientTexture2D_1k1nf")
+texture_progress = SubResource("GradientTexture2D_8xwxt")
 
 [connection signal="body_entered" from="AssemblyMK1/MainRocket" to="AssemblyMK1" method="_on_main_rocket_body_entered"]
 [connection signal="output_changed" from="AssemblyMK1/NeuronComponent" to="." method="_on_neuron_component_output_changed"]
 [connection signal="value_changed" from="CanvasLayer/Panel/VBoxContainer/AltitudeWeight/AltitudeHSlider" to="." method="_on_altitude_h_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Panel/VBoxContainer/VelocityWeight/VelocityHSlider" to="." method="_on_velocity_h_slider_value_changed"]
+[connection signal="toggled" from="CanvasLayer/Panel/VBoxContainer/HBoxContainerUseFuel/CBUseFuel" to="." method="_on_cb_use_fuel_toggled"]
+[connection signal="toggled" from="CanvasLayer/Panel/VBoxContainer/HBoxContainerRandomizeAltitude/CBRandomizeAltitude" to="." method="_on_cb_randomize_altitude_toggled"]
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/Button" to="." method="_on_button_pressed"]
 
 [editable path="AssemblyMK1"]
